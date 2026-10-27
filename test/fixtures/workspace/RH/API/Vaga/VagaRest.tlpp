@@ -1,0 +1,13 @@
+#Include "TOTVS.ch"
+
+/*/{Protheus.doc} ZVAGAPOST
+Cadastra uma vaga a partir do corpo da requisição (fonte fictício para os testes).
+@type function
+/*/
+User Function ZVAGAPOST(cBody)
+	Local oModel := VagaModel():New()
+	Local jBody  := JsonObject():New()
+
+	jBody:fromJson(cBody)
+	oModel:fromJson(jBody)
+Return oModel

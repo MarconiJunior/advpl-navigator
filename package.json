@@ -1,0 +1,223 @@
+{
+  "name": "advpl-navigator",
+  "displayName": "AdvPL Navigator",
+  "description": "Navegação entre fontes AdvPL/TLPP (Protheus): ir para definição, painel de usos, contador de usos, busca de símbolos e autocomplete de campos do dicionário SX3.",
+  "version": "0.2.0",
+  "publisher": "marconiguimaraes",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarconiJunior/advpl-navigator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MarconiJunior/advpl-navigator/issues"
+  },
+  "homepage": "https://github.com/MarconiJunior/advpl-navigator#readme",
+  "preview": true,
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#1e3a5f",
+    "theme": "dark"
+  },
+  "keywords": [
+    "advpl",
+    "tlpp",
+    "protheus",
+    "totvs",
+    "sx3"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:advpl",
+    "onLanguage:advpl-asp",
+    "workspaceContains:**/*.{prw,PRW,prx,PRX,tlpp,TLPP}"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "advplNavigator",
+          "title": "AdvPL",
+          "icon": "resources/usages.svg"
+        }
+      ]
+    },
+    "views": {
+      "advplNavigator": [
+        {
+          "id": "advplNavigator.usages",
+          "name": "Usos"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "advplNavigator.goToDefinition",
+        "key": "f12",
+        "when": "editorTextFocus && (editorLangId == advpl || resourceExtname =~ /^\\.(prw|prx|tlpp|aph)$/i)"
+      },
+      {
+        "command": "advplNavigator.findUsages",
+        "key": "shift+f12",
+        "when": "editorTextFocus && (editorLangId == advpl || resourceExtname =~ /^\\.(prw|prx|tlpp|aph)$/i)"
+      },
+      {
+        "command": "advplNavigator.findUsages",
+        "key": "alt+f7",
+        "when": "editorTextFocus && (editorLangId == advpl || resourceExtname =~ /^\\.(prw|prx|tlpp|aph)$/i)"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "advplNavigator.showReferences",
+          "when": "false"
+        },
+        {
+          "command": "advplNavigator.showUsagesOf",
+          "when": "false"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "advplNavigator.goToDefinition",
+        "title": "AdvPL Navigator: Ir para definição (na declaração, mostra os usos)"
+      },
+      {
+        "command": "advplNavigator.findUsages",
+        "title": "AdvPL Navigator: Encontrar usos"
+      },
+      {
+        "command": "advplNavigator.showReferences",
+        "title": "AdvPL Navigator: Mostrar usos da declaração"
+      },
+      {
+        "command": "advplNavigator.showUsagesOf",
+        "title": "AdvPL Navigator: Mostrar usos do símbolo"
+      },
+      {
+        "command": "advplNavigator.reindex",
+        "title": "AdvPL Navigator: Reindexar fontes"
+      },
+      {
+        "command": "advplNavigator.exportDictionary",
+        "title": "AdvPL Navigator: Exportar dicionário (SX2/SX3) do SQL Server"
+      },
+      {
+        "command": "advplNavigator.reloadDictionary",
+        "title": "AdvPL Navigator: Recarregar dicionário"
+      }
+    ],
+    "configuration": {
+      "title": "AdvPL Navigator",
+      "properties": {
+        "advplNavigator.include": {
+          "type": "string",
+          "default": "**/*.{prw,PRW,Prw,prx,PRX,Prx,tlpp,TLPP,Tlpp,aph,APH}",
+          "description": "Glob dos fontes indexados."
+        },
+        "advplNavigator.exclude": {
+          "type": "string",
+          "default": "**/{node_modules,.git}/**",
+          "description": "Glob de pastas/arquivos ignorados na indexação."
+        },
+        "advplNavigator.ctrlClickReferences": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ctrl+clique no nome de uma função/método na própria declaração mostra os usos."
+        },
+        "advplNavigator.usages.view": {
+          "type": "string",
+          "enum": [
+            "panel",
+            "peek"
+          ],
+          "enumDescriptions": [
+            "Painel \"Usos\" fixo (como o Find Usages do IntelliJ): pasta → fonte → linhas.",
+            "Janela flutuante (peek) do VS Code."
+          ],
+          "default": "panel",
+          "description": "Onde mostrar os usos (Shift+F12, Alt+F7, F12/Ctrl+clique na declaração)."
+        },
+        "advplNavigator.codeLens.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Mostra \"N usos\" acima de cada função, classe e método."
+        },
+        "advplNavigator.dictionary.path": {
+          "type": "string",
+          "default": "${workspaceFolder}/.vscode/advpl-dict.json",
+          "description": "Arquivo JSON do dicionário gerado pelo comando de exportação."
+        },
+        "advplNavigator.dictionary.server": {
+          "type": "string",
+          "default": "",
+          "description": "Servidor SQL Server do Protheus (ex.: SRVSQL\\\\PROTHEUS ou 10.0.0.5,1433)."
+        },
+        "advplNavigator.dictionary.database": {
+          "type": "string",
+          "default": "",
+          "description": "Banco de dados do Protheus."
+        },
+        "advplNavigator.dictionary.companySuffix": {
+          "type": "string",
+          "default": "010",
+          "description": "Sufixo das tabelas do dicionário (SX3010 = empresa 01)."
+        },
+        "advplNavigator.dictionary.user": {
+          "type": "string",
+          "default": "",
+          "description": "Usuário do SQL Server usado na última exportação (DOMINIO\\usuario para login do Windows via NTLM). A senha nunca é gravada."
+        },
+        "advplNavigator.dictionary.integratedSecurity": {
+          "type": "boolean",
+          "default": false,
+          "description": "Usa o login do Windows da sessão atual (só no Windows, via PowerShell). Se falso, a extensão pede usuário e senha e conecta direto, em qualquer sistema."
+        },
+        "advplNavigator.dictionary.encrypt": {
+          "type": "boolean",
+          "default": true,
+          "description": "Criptografa a conexão com o SQL Server."
+        },
+        "advplNavigator.dictionary.trustServerCertificate": {
+          "type": "boolean",
+          "default": false,
+          "description": "Aceita o certificado do SQL Server sem validar (servidores internos com certificado próprio). Deixa a conexão sujeita a interceptação: use só em rede confiável."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "clean": "node -e \"for (const d of ['out','dist']) require('fs').rmSync(d,{recursive:true,force:true})\"",
+    "compile": "tsc -p . && node esbuild.mjs",
+    "watch": "tsc -watch -p .",
+    "lint": "eslint src test esbuild.mjs",
+    "test": "npm run compile && node --expose-gc test/run.js",
+    "test:integration": "npm run compile && node test/integration.js",
+    "vscode:prepublish": "npm run clean && tsc -p . && node esbuild.mjs --production",
+    "package": "vsce package --no-dependencies",
+    "publish": "vsce publish --no-dependencies"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.20.0",
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-electron": "^2.4.1",
+    "@vscode/vsce": "^3.2.1",
+    "esbuild": "0.25.0",
+    "eslint": "9.20.0",
+    "typescript": "^5.4.0",
+    "typescript-eslint": "8.24.0"
+  },
+  "dependencies": {
+    "tedious": "18.6.2"
+  }
+}

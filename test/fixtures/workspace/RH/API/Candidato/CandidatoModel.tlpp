@@ -1,0 +1,15 @@
+#Include "TOTVS.ch"
+
+/*/{Protheus.doc} CandidatoModel
+Modelo de um candidato (fonte fictício para os testes).
+@type class
+/*/
+Class CandidatoModel
+	Public Data nome as character
+
+	Public Method New() Constructor
+EndClass
+
+Method New() Class CandidatoModel
+	::nome := ""
+Return Self

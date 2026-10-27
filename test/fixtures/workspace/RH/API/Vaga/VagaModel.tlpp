@@ -1,0 +1,23 @@
+#Include "TOTVS.ch"
+
+/*/{Protheus.doc} VagaModel
+Modelo de uma vaga (fonte fictício para os testes).
+@type class
+/*/
+Class VagaModel
+	Public Data codigo    as character
+	Public Data descricao as character
+
+	Public Method New() Constructor
+	Public Method fromJson(jBody)
+EndClass
+
+Method New() Class VagaModel
+	::codigo    := ""
+	::descricao := ""
+Return Self
+
+Method fromJson(jBody) Class VagaModel
+	::codigo    := jBody["codigo"]
+	::descricao := jBody["descricao"]
+Return Self
