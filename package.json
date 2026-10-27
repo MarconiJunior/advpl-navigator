@@ -3,7 +3,7 @@
   "displayName": "AdvPL Navigator",
   "description": "Navegação entre fontes AdvPL/TLPP (Protheus): ir para definição, painel de usos, contador de usos, busca de símbolos e autocomplete de campos do dicionário SX3.",
   "version": "0.2.0",
-  "publisher": "marconiguimaraes",
+  "publisher": "marconijunior",
   "license": "MIT",
   "repository": {
     "type": "git",

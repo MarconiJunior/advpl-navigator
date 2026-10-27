@@ -12,11 +12,11 @@ Checklist para a primeira publicação. Este arquivo não vai para o `.vsix`.
 
 ## Conta e token (uma vez)
 
-1. Criar o publisher `marconiguimaraes` em https://marketplace.visualstudio.com/manage
+1. Criar o publisher `marconijunior` em https://marketplace.visualstudio.com/manage
    (o ID tem que ser igual ao campo `publisher` do `package.json`).
 2. Criar um Personal Access Token no Azure DevOps (https://dev.azure.com) com
    organização **All accessible organizations** e escopo **Marketplace → Manage**.
-3. `npx vsce login marconiguimaraes` e colar o token quando pedir.
+3. `npx vsce login marconijunior` e colar o token quando pedir.
 
 ## Publicar
 
